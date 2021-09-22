@@ -7,18 +7,17 @@ from django.conf import settings
 # Create your models here.
 class Applicant (models.Model):
     Applicant_Id    =   models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    First_Name   =   models.TextField()
-    Last_Name   =   models.TextField()
-    Other_Names   =   models.TextField()
-    Email   =   models.EmailField()
-    Date_of_birth   =   models.DateField()
-    Id_Number   =   models.TextField()
-    Phone_Number   =   models.TextField()
-    Level_of_Education   =   models.TextField()
-    Course   =   models.TextField()
-    Other_Education   =   models.TextField()
-    Previous_Job   =   models.TextField()
-    Time_Worked_There   =   models.IntegerField()
+    First_Name   =   models.TextField(default="Something")
+    Last_Name   =   models.TextField(default="Something")
+    Other_Names   =   models.TextField(default="Something")
+    Email   =   models.EmailField(default="Something@something.com")
+    Id_Number   =   models.TextField(default="Something")
+    Phone_Number   =   models.TextField(default="Something")
+    Level_of_Education   =   models.TextField(default="Something")
+    Course   =   models.TextField(default="Something")
+    Other_Education   =   models.TextField(default="Something")
+    Previous_Job   =   models.TextField(default="Something")
+    Time_Worked_There   =   models.IntegerField(default=0)
 
     def __str__(self):
         return self.First_Name
@@ -32,7 +31,7 @@ class Guarantors (models.Model):
     Id_Number   =   models.TextField()
     Phone_Number   =   models.TextField()
     Relationship   =   models.TextField()   
-    Applicant   =   models.ForeignKey(Applicant,on_delete=models.CASCADE)
+    
     
 
 class  Job_listing (models.Model):
@@ -40,10 +39,9 @@ class  Job_listing (models.Model):
     Education_level   =   models.TextField()
     Course   =   models.TextField()
     Years_experience    =   models.IntegerField()
-    End_of_application_date =   models.DateField()
     Position   =   models.TextField()
     Location   =   models.TextField()
-    Business    =   models.ForeignKey(Business,on_delete=models.CASCADE)
+   
 
 
     

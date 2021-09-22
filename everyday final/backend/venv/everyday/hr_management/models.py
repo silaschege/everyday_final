@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from business.models import Business
 from django.conf import settings
+import datetime
 
 
 # Create your models here..
@@ -16,60 +17,46 @@ class Employee(models.Model):
     Phone_Number    =   models.TextField()
     Post    =   models.TextField()
     Company_Position    =   models.TextField()
-    Business    =   models.ForeignKey(Business,on_delete=models.CASCADE)
+  
 
     def __str__(self):
         return self.Post
 
 class Work_day(models.Model):
     Work_day_id =   models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    Date    =   models.DateField()
-    Business    =   models.ForeignKey(Business,on_delete=models.CASCADE)
-    Employee =  models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='employee_workday')
+    Date    =   models.DateField(default=datetime.date.today)
+    Employee = models.TextField()
 
 class Announcement(models.Model):
     Communication_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    Message =   models.TextField()
-    From    =   models.TextField()
-    To  =   models.TextField()
-    Business_hr    =   models.ForeignKey(Business,on_delete=models.CASCADE)
-    Employee    =   models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='employee_announcements')
+    Message =   models.TextField(default="Something")
+    From    =   models.TextField(default="Something")
+    To  =   models.TextField(default="Something")
     Time = models.DateTimeField(default=timezone.now)
 
 
 class Issue(models.Model):
     Issue_Id    =   models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     Staff_issue =   models.TextField()
-    Date    =   models.DateField()
-    Disciplinary_Action =   models.TextField()
-    Action_Taken    =   models.TextField()
-    Business    =   models.ForeignKey(Business,on_delete=models.CASCADE)
-    Employee    =   models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='employee_issue')
-    Time = models.DateTimeField(default=timezone.now)
+    Date    =   models.DateField(default=datetime.date.today)
+    Action =   models.TextField()
+    
+
 
 class Complain(models.Model):
     Complain_Id =   models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     Staff_issue =   models.TextField()
-    Date    =   models.DateField()
-    Disciplinary_Action =   models.TextField()
-    Action_Taken    =   models.TextField()
-    Business_hr    =   models.ForeignKey(Business,on_delete=models.CASCADE)
-    Employee    =   models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='employee_complains')
-    Time = models.DateTimeField(default=timezone.now)
+    Action =   models.TextField()
+    Date    =   models.DateField(default=datetime.date.today)
+ 
+  
 
 class Task (models.Model):
     Task_id =   models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     Task    =   models.TextField()
-    State   =   models.BooleanField()
+    State   =   models.TextField()
     From    =   models.TextField()
-    Date    =   models.DateField()
-    Business    =   models.ForeignKey(Business,on_delete=models.CASCADE)
-    Employee =  models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='employee_tasks')
+    Date    =   models.DateField(default=datetime.date.today)
     Time = models.DateTimeField(default=timezone.now)
 
 
